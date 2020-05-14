@@ -1,5 +1,43 @@
 const mongoose = require('mongoose');
 
+/**
+ * @swagger
+ * definitions:
+ *   Users:
+ *     type: object
+ *     properties:
+ *       name:
+ *         type: string
+ *       emailId:
+ *         type: string
+ *       password:
+ *         type: string
+ *         format: password
+ *       city:
+ *         type: string
+ *       state:
+ *         type: string
+ *       zipCode:
+ *         type: integer
+ *       country:
+ *          type: string
+ *      isLabour:
+ *          type: boolean
+ *      rating: 
+ *          type: string
+ *      review:
+ *          type: string
+ *      isAvailable:
+ *          type: boolean
+ *      phoneNumber:
+ *          type: integer
+ *      address:
+ *          type: string
+ *       required:
+ *         - emailId
+ *         - password
+ */
+
 const userSchema = mongoose.Schema({
     name: { type: String },
     emailId: { type: String },

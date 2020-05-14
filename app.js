@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var cors = require('cors')
 let mongoose = require('mongoose');
 var logger = require('morgan');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 const dbConfig = require('./config/database.config.js');
 
 var indexRouter = require('./routes/index');
@@ -15,6 +17,38 @@ const jwt = require('./helpers/jwt');
 const errorHandler = require('./helpers/error-handler');
 
 var app = express();
+
+const swaggerDefinition = {
+  info: {
+    title: 'FarmaLabour Swagger API',
+    version: '1.0.0',
+    description: 'Endpoints to test Application',
+  },
+  // host: 'localhost:3003',
+  // basePath: '/',
+  securityDefinitions: {
+    bearerAuth: {
+      type: 'apiKey',
+      name: 'Authorization',
+      scheme: 'bearer',
+      in: 'header',
+    },
+  },
+};
+
+const options = {
+  swaggerDefinition,
+  apis: ['./routes/*.js'],
+};
+
+const swaggerSpec = swaggerJsDoc(options);
+
+
+app.get('/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+
 
 app.use(cors());
 // use body parser
@@ -39,8 +73,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(jwt());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.use(jwt());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
