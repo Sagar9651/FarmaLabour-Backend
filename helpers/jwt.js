@@ -14,3 +14,8 @@ function jwt() {
         ]
     });
 }
+
+
+// JWT Token Decode
+// const token = req.headers['authorization'].split(' ')[1];
+// console.log('data', jwt.decode(token,{complete: true}));

@@ -31,8 +31,8 @@ module.exports = (app) => {
  *       '200':
  *         description: User found and logged in successfully
  */
-    app.post('/authenticate', userController.authenticate);
-    app.post('/register', userController.register);
+    app.post('/authenticate', userController.authenticate); // Login 
+    app.post('/register', userController.register); // register User
 
 /**
  * @swagger
@@ -58,23 +58,23 @@ module.exports = (app) => {
  *         description: A single user object
  *         schema:
  */
-    app.get('/getProfile/:userId', userController.getUserData);
-    app.get('/getAllLabours', userController.getAllLabours);
-    app.get('/getAllFarmers', userController.getAllFarmer);
-    app.put('/updateProfile/:userId', userController.updateProfile);
+    app.get('/getProfile/:userId', userController.getUserData);     //get User Data
+    app.get('/getAllLabours', userController.getAllLabours);        // get All Labours(Available only)
+    app.get('/getAllFarmers', userController.getAllFarmer);         // get All Farmers
+    app.put('/updateProfile/:userId', userController.updateProfile);    // update user Data
 
     const farmWorkController = require('../controllers/farmWorkController');
 
     app.post('/addWork', farmWorkController.addWork);
-    app.get('/getWorkHistoryByUser/:userId', farmWorkController.getWorkHistory);
-    app.get('/getWorkHistoryById/:workId', farmWorkController.getWorkHistoryById);
-    app.put('/updateWorkHistory/:workId', farmWorkController.updateWork);
-    app.delete('/deleteWork/:workId', farmWorkController.deleteWork);
+    app.get('/getWorkHistoryByUser/:userId', farmWorkController.getWorkHistory);    //user wise Work History
+    app.get('/getWorkHistoryById/:workId', farmWorkController.getWorkHistoryById);  //get Work by Id
+    app.put('/updateWorkHistory/:workId', farmWorkController.updateWork);           // update work
+    app.delete('/deleteWork/:workId', farmWorkController.deleteWork);               // delete work
 
     const labourWorkController = require('../controllers/labourWorkController');
 
-    app.get('/getLabourWorkHistory/:labourId', labourWorkController.getLabourWorkHistory);
-    app.post('/acceptWork', labourWorkController.acceptWork);
-    app.put('/updateLabourWorkHistory/:historyId', labourWorkController.updateWorkHistory);
-    app.delete('/deleteLabourWorkHistory/:historyId', labourWorkController.deleteLabourWorkHistory);
+    app.get('/getLabourWorkHistory/:labourId', labourWorkController.getLabourWorkHistory); //get Labour WorkHistory
+    app.post('/acceptWork', labourWorkController.acceptWork); //Accept work Notification
+    app.put('/updateLabourWorkHistory/:historyId', labourWorkController.updateWorkHistory); //Update Labour Work History
+    app.delete('/deleteLabourWorkHistory/:historyId', labourWorkController.deleteLabourWorkHistory); // delete labour work History
 }
